@@ -41,7 +41,7 @@ Then use the configuration file and edit it to match your needs:
 
 Finally run the services:
 
-    docker-compose -p geocoder up -d
+    docker-compose up -d
 
 Initialization
 --------------
@@ -52,4 +52,4 @@ First, download and put json files in `data` directory. You may may to prefix th
 
 Then run the initialization script:
 
-    ./initialize.sh geocoder
+    ./initialize.sh

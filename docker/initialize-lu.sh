@@ -1,12 +1,5 @@
 #!/bin/bash
 
-PROJECT=$1
-
-die() {
-    echo $*
-    exit 1
-}
-
 set -e
 
 [[ -z "${PROJECT}" ]] && die "You must pass a project name in parameter. For example: $0 geocoder"
@@ -35,8 +28,8 @@ map({type: "municipality", name: .name, city: .name, postcode: .postcode, lat: (
 
 cat addresses-lu/cities.json addresses-lu/streets.json > addresses-lu/addresses.json
 
-docker-compose -p ${PROJECT} run --rm --entrypoint /bin/bash addok-lu -c "cat addresses/addresses.json | addok batch"
+docker-compose run --rm --entrypoint /bin/bash addok-lu -c "cat addresses/addresses.json | addok batch"
 
-docker-compose -p ${PROJECT} exec addok-lu addok ngrams
+docker-compose exec addok-lu addok ngrams
 
-docker-compose -p ${PROJECT} exec redis-server-lu redis-cli BGSAVE
+docker-compose exec redis-server-lu redis-cli BGSAVE
