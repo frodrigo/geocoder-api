@@ -35,7 +35,7 @@ map({type: "municipality", name: .name, city: .name, postcode: .postcode, lat: (
 
 cat addresses-lu/cities.json addresses-lu/streets.json > addresses-lu/addresses.json
 
-docker-compose -p ${PROJECT} run --entrypoint /bin/bash addok-lu -c "cat addresses/addresses.json | addok batch"
+docker-compose -p ${PROJECT} run --rm --entrypoint /bin/bash addok-lu -c "cat addresses/addresses.json | addok batch"
 
 docker-compose -p ${PROJECT} exec addok-lu addok ngrams
 

@@ -17,10 +17,10 @@ docker-compose -p ${PROJECT} up -d redis-server-fr
 
 # Download and load BAN
 wget https://bano.openstreetmap.fr/BAN_odbl/BAN_odbl.json.bz2 -O addresses-fr/BAN_odbl.json.bz2
-docker-compose -p ${PROJECT} run --entrypoint /bin/bash addok-fr -c "bzcat addresses/BAN_odbl.json.bz2 | jq -c 'del(.housenumbers[]?.id)' | addok batch"
+docker-compose -p ${PROJECT} run --rm --entrypoint /bin/bash addok-fr -c "bzcat addresses/BAN_odbl.json.bz2 | jq -c 'del(.housenumbers[]?.id)' | addok batch"
 
 # Patch BAN
-docker-compose -p ${PROJECT} run --entrypoint /bin/bash addok-fr -c "ls addresses/*.json | xargs cat | addok batch"
+docker-compose -p ${PROJECT} run --rm --entrypoint /bin/bash addok-fr -c "ls addresses/*.json | xargs cat | addok batch"
 
 # Index
 docker-compose -p ${PROJECT} exec addok-fr addok ngrams
